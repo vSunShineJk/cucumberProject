@@ -1,9 +1,8 @@
-package step_definition;
+package com.step_definition;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import utiliies.Driver;
 
 public class EatingCucumber {
     @Given("John is hungry")

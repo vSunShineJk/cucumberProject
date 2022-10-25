@@ -1,4 +1,4 @@
-package utiliies;
+package com.utilities;
 
 
 
