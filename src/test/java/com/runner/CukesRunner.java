@@ -6,12 +6,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        plugin = "html:target/cucumber-report.html",
         features = "src/test/resources/Features", // features mean -> location of 'Features' folder
         glue = "com/step_definition", // glue means ->step definitions
         dryRun = false,
-        tags = "@regression"
+        tags = "@wip"
 )
 
-public class CokesRunner {
+public class CukesRunner {
 
 }

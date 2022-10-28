@@ -1,11 +1,14 @@
 package com.step_definition;
 
+import com.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
-    @Before
+    //@Before
     public void setUpScenario(){
         System.out.println("Setting up browser using cucumber @Before each Scenario");
     }
@@ -22,9 +25,15 @@ public class Hooks {
     }
 
     @After
-    public void tearDownScenario(){
+    public void tearDownScenario(Scenario scenario){
         // we will implement each taking screenshot in this method
         System.out.println("It will be closing browsing using cucumber @After each scenario");
+
+        if (scenario.isFailed()){
+            byte[] screenshot = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot,"image/png",scenario.getName());
+        }
+        Driver.closeDriver();
     }
 
     //@BeforeStep
