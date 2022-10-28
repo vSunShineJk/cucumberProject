@@ -12,6 +12,6 @@ import org.junit.runner.RunWith;
         tags = "@regression"
 )
 
-public class CukesRunner {
+public class CokesRunner {
 
 }
