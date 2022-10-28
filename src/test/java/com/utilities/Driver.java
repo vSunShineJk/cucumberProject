@@ -3,6 +3,7 @@ package com.utilities;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -17,10 +18,14 @@ public class Driver {
     public static WebDriver getDriver() {
         if (webDriver == null) {
             String browser = ConfigurationReader.getProperty("browser");
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--incognito");
+            options.addArguments("lang=en-GB");
+
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    webDriver = new ChromeDriver();
+                    webDriver = new ChromeDriver(options);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -55,7 +60,9 @@ public class Driver {
     public static void closeDriver() {
         if (webDriver != null)
             webDriver.quit(); // this will kill the session but driver will not be null
+            webDriver = null;
     }
 }
+
 
 
