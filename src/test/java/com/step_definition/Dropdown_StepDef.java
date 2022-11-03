@@ -30,10 +30,10 @@ public class Dropdown_StepDef {
 //        }
 
         // This utility method will return us List of String of given dropdown elements
-        List<String> actualOptionsAsString = BrowserUtils.dropdownElementsAsString(obj.monthDropdown);
+ /*       List<String> actualOptionsAsString = BrowserUtils.dropdownElementsAsString(obj.monthDropdown);
 
         // Assert will check the size of the list first.
         // If it is matching it will check/verify content 1 by 1.
-        Assert.assertEquals("The Assertion is failed!",expectedMonths, actualOptionsAsString);
+        Assert.assertEquals("The Assertion is failed!",expectedMonths, actualOptionsAsString); */
     }
 }
