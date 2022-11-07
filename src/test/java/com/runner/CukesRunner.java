@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/Features", // features mean -> location of 'Features' folder
         glue = "com/step_definition", // glue means ->step definitions
-        dryRun = false,
-        tags = "@Apple",
+        dryRun = true,
+        tags = "@regression",
         publish = true
 )
 
