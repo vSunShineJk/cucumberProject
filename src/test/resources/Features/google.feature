@@ -8,7 +8,7 @@ Feature: Google search functionality
     When user types apple in the google search box and click enter
     Then user sees apple - Google Search is in the google title
 
-    @Apple
+    @smoke
   Scenario: Search functionality result tile verification
     Given user is on Google search page
     When user types "apple" in the google search box and click enter
