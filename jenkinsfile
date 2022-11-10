@@ -1,25 +1,76 @@
-node {
-    stage('Clone code') {
-        git 'https://github.com/vSunShineJk/cucumberProject.git'
+pipeline{
+
+    agent any
+
+    tools {
+        maven 'M3'
     }
 
-    stage('Run tests'){
-        if(isUnix()){
-            sh "mvn clean test"
-        } else {
-            bat "mvn clean test -Dcucumber.filter.tags=\"@regression\" "
+    parameters {
+        booleanParam(
+            name: 'smokeExecute',
+            defaultValue: true,
+            description: 'if this param is true, the smoke will run'
+        )
+
+        booleanParam(
+            name: 'regressionExecute',
+            defaultValue: false,
+            description: 'if this param is true, the regression will run'
+        )
+    }
+
+    stages {
+        stage('build'){
+            steps{
+                git 'https://github.com/vSunShineJk/cucumberProject'
+            }
         }
 
+        stage("cleaning"){
+            steps{
+                bat 'mvn clean'
+            }
+        }
+
+        stage("smokeTest"){
+            when {
+                expression {
+                    params.smokeExecute
+                }
+            }
+            steps{
+               bat 'mvn test -Dcucumber.filter.tags=@smoke'
+            }
+        }
+
+
+        stage("regressionTest"){
+             when {
+                 expression {
+                    params.smokeExecute && params.regressionExecute
+                 }
+             }
+             steps{
+                bat 'mvn test -Dcucumber.filter.tags=@regression'
+             }
+        }
     }
 
-    stage('Generate report'){
-           cucumber failedFeaturesNumber: -1,
-            failedScenariosNumber: -1,
-            failedStepsNumber: -1,
-            fileIncludePattern: '**/*.json',
-            pendingStepsNumber: -1,
-            skippedStepsNumber: -1,
-            sortingMethod: 'ALPHABETICAL',
-            undefinedStepsNumber: -1
+    post {
+        always{
+            cucumber buildStatus: "UNSTABLE",
+            fileIncludePattern: '**/cucumber.json',
+            jsonReportDirectory: 'target'
+        }
+
+//         success {
+//
+//         }
+//
+//         failed{
+//
+//         }
     }
 }
+

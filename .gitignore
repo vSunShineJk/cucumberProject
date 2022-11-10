@@ -2,3 +2,7 @@
 target
 main
 draft
+/bin/
+.classpath
+.project
+
